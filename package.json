@@ -44,5 +44,6 @@
   },
   "devDependencies": {
     "source-map-explorer": "^2.4.1"
-  }
+  },
+  "proxy": "https://obb-server.herokuapp.com"
 }

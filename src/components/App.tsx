@@ -3,13 +3,13 @@ import {AppRouter} from './AppRouter';
 import 'prismjs/themes/prism-okaidia.css';
 import 'prismjs/components/prism-typescript.min.js'
 
-import './App.css';
+import classes from './App.module.css';
 
 
 function App() {
     return (
         <div>
-            <div className="content">
+            <div className={classes.content}>
                 <AppRouter/>
             </div>
         </div>
