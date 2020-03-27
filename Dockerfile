@@ -20,8 +20,9 @@ FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+#COPY nginx.conf /etc/nginx/nginx.conf
 
-RUN chmod 666 /etc/nginx/nginx.conf
+COPY nginx.conf.base /etc/nginx/nginx.conf
 
 EXPOSE 80
 
