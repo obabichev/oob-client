@@ -15,16 +15,17 @@ COPY src src
 RUN npm run build
 
 
-FROM nginx:alpine
+FROM nginx:1.17.9
 
 COPY --from=build /app/build /usr/share/nginx/html
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-#COPY nginx.conf /etc/nginx/nginx.conf
+#COPY default.conf.template /etc/nginx/conf.d/default.conf
+#COPY default.conf.template /etc/nginx/default.conf.template
+#COPY default.conf.template.base /etc/nginx/default.conf.template
 
-COPY nginx.conf.base /etc/nginx/nginx.conf
+COPY default.conf.template /etc/nginx/conf.d/default.conf.template
+COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+CMD /bin/bash -c "envsubst '\$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon off;'
 
-CMD ["nginx", "-g", "daemon off;"]
 
