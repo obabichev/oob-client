@@ -5,6 +5,8 @@ import Prism from 'prismjs';
 import 'prismjs/themes/prism-okaidia.css';
 import 'prismjs/components/prism-typescript.min.js'
 import {Link} from 'react-router-dom';
+import {Page} from '../Page';
+import {A} from '../common/A';
 
 
 export const PostsPage: React.FunctionComponent<{}> = (props) => {
@@ -16,11 +18,13 @@ export const PostsPage: React.FunctionComponent<{}> = (props) => {
 
     console.log('[obabichev] pposts', posts);
 
-    return <div>
+    return <Page>
         {posts.map(post => {
-            return <div><Link to={`/post/${post.id}`}>
-                <h2>{post.title}</h2>
-            </Link></div>
+            return <div>
+                <A href={`/post/${post.id}`}>
+                    <h2>{post.title}</h2>
+                </A>
+            </div>
         })}
-    </div>
+    </Page>
 };
