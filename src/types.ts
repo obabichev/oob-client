@@ -1,3 +1,12 @@
+export type Maybe<T> = null | T;
+
+export interface User {
+    username: string;
+    firstName?: string;
+    lastName?: string;
+    email: string;
+}
+
 export interface Post {
     id: number;
     title: string;
