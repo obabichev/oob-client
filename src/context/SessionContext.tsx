@@ -1,5 +1,6 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Maybe, User} from '../types';
+import {fetchCurrentUser} from '../service/auth';
 
 interface UserContextApi {
     user: Maybe<User>;
@@ -10,6 +11,16 @@ const SessionContext = React.createContext<UserContextApi>({user: null, setUser:
 
 export const SessionProvider: React.FunctionComponent<{}> = ({children}) => {
     const [user, setUser] = useState<Maybe<User>>(null);
+
+    useEffect(() => {
+        fetchCurrentUser()
+            .then(user => {
+                setUser(user);
+            })
+            .catch(error => {
+                console.error('error', error);
+            })
+    }, []);
 
     return <SessionContext.Provider value={{user, setUser}}>
         {children}

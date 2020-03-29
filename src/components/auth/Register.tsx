@@ -32,7 +32,7 @@ export const Register: React.FunctionComponent<{}> = () => {
                 history.push('/');
             })
             .catch(error => {
-                console.log('[obabichev] error', error);
+                console.log('error', error);
             })
     };
 

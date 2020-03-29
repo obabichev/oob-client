@@ -16,8 +16,6 @@ export const PostsPage: React.FunctionComponent<{}> = (props) => {
 
     const posts = useFetchPosts();
 
-    console.log('[obabichev] pposts', posts);
-
     return <Page>
         {posts.map(post => {
             return <div>
