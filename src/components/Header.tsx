@@ -5,9 +5,12 @@ import {CustomLink} from './common/CustomLink';
 import {useSession} from '../context/SessionContext';
 import {IconButton} from './common/IconButton';
 import {fetchLogout} from '../service/auth';
+import {ProtectedComponent} from './common/ProtectedComponent';
+import {useHistory} from 'react-router';
 
 export const Header = () => {
     const [user, setUser] = useSession();
+    const history = useHistory();
 
     const onLogout = () => {
         fetchLogout()
@@ -19,6 +22,10 @@ export const Header = () => {
             })
     };
 
+    const onCreatePostClick = () => {
+        history.push('/create-post');
+    };
+
     return <div className={classes.headerContainer}>
         <div className={classes.headerContent}>
             <div>
@@ -28,6 +35,13 @@ export const Header = () => {
                     </strong>
                 </CustomLink>
             </div>
+            <ProtectedComponent permission="author">
+                <div style={{height: 20, paddingLeft: 10}}>
+                    <IconButton height={20}
+                                src="/images/create_yellow.svg"
+                                onClick={onCreatePostClick}/>
+                </div>
+            </ProtectedComponent>
             <div style={{flex: 1}}/>
             {user &&
             <>
@@ -35,7 +49,8 @@ export const Header = () => {
                     {user?.username}
                 </div>
                 <div style={{height: 24, paddingLeft: 10}}>
-                    <IconButton src="/images/exit.svg" onClick={onLogout}/>
+                    <IconButton src="/images/exit.svg"
+                                onClick={onLogout}/>
                 </div>
             </>
             }

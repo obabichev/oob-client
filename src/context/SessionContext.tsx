@@ -32,8 +32,8 @@ export const useSession = () => {
     return [user, setUser] as [typeof user, typeof setUser];
 };
 
-// export const useAutorized = () => {
-//     const {user} = useContext(SessionContext);
-//
-//     return !!user;
-// };
+export const usePermission = (permission: string) => {
+    const {user} = useContext(SessionContext);
+
+    return !!(user?.permissions || []).find(({name}) => name === permission);
+};

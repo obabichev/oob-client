@@ -5,6 +5,12 @@ export interface User {
     firstName?: string;
     lastName?: string;
     email: string;
+    permissions: Permission[];
+}
+
+export interface Permission {
+    id: number;
+    name: string;
 }
 
 export interface Post {
