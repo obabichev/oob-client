@@ -1,8 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useFetchPost} from './hooks';
-import ReactMarkdown from 'react-markdown';
-import Prism from 'prismjs';
 import {Page} from '../Page';
+import {PostComponent} from './PostComponent';
 
 export const PostPage: React.FunctionComponent<{}> = (props) => {
     // @ts-ignore
@@ -10,17 +9,11 @@ export const PostPage: React.FunctionComponent<{}> = (props) => {
 
     const post = useFetchPost(id);
 
-    useEffect(() => {
-        Prism.highlightAll();
-    }, [post]);
-
     if (!post) {
         return null;
     }
 
     return <Page>
-        <h1>{post.title}</h1>
-
-        <ReactMarkdown source={post.content}/>
+        <PostComponent post={post}/>
     </Page>
 };
