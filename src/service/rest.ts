@@ -1,7 +1,16 @@
 const domain = '/api';
 
-const get = async <R>(path: string): Promise<R> => {
-    const response = await fetch(domain + path);
+type Params = { [key in string]: string | number };
+
+const joinParams = (params?: Params) => {
+    if (!params) {
+        return '';
+    }
+    return '?' + Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
+};
+
+const get = async <R>(path: string, params?: Params): Promise<R> => {
+    const response = await fetch(domain + path + joinParams(params));
 
     if (response.status !== 200) {
         throw Error(await response.text());
@@ -26,7 +35,34 @@ const post = async <R>(path: string, body: Object): Promise<R> => {
     return response.json();
 };
 
+const file = async <R>(path: string): Promise<String> => {
+    const response = await fetch(domain + path);
+
+    if (response.status !== 200) {
+        throw Error(await response.text());
+    }
+
+    return response.text();
+};
+
+const upload = async (path: string, file: any): Promise<any> => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch(domain + path, {
+        method: 'POST',
+        // headers: {
+        //     'content-type': file.type
+        // },
+        body: formData
+    });
+
+    return response.text();
+};
+
 export const service = {
     get,
-    post
+    post,
+    file,
+    upload
 };

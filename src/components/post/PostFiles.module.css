@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    overflow-x: auto;
+    flex-direction: row;
+    /*max-width: 500px;*/
+}
+
+.uploadButtonContainer:hover {
+    background-color: #555555;
+}
+
+.uploadBtnWrapper {
+    position: relative;
+    overflow: hidden;
+    height: 150px;
+    width: 150px;
+}
+
+/*.uploadBtnWrapper:hover {*/
+/*    background-color: #555555;*/
+/*}*/
+
+.btn {
+    /*border: 2px solid gray;*/
+    /*color: gray;*/
+    /*background-color: white;*/
+    /*padding: 8px 20px;*/
+    /*border-radius: 8px;*/
+    /*font-size: 20px;*/
+    /*font-weight: bold;*/
+}
+
+.uploadBtnWrapper input[type=file] {
+    font-size: 150px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
