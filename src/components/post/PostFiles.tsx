@@ -27,15 +27,22 @@ export const PostFiles: React.FunctionComponent<{ postId: number; }> = ({postId}
         <div className={classes.uploadButtonContainer}
              style={{width: 150, height: 150, margin: 4, border: "dashed white 1px", borderRadius: 20}}>
             <div className={classes.uploadBtnWrapper}>
-                <img className={classes.btn} style={{width: 100, height: 100, marginTop: 13}}
+                <img className={classes.btn} style={{width: 80, height: 80, marginTop: 23}}
                      src="/images/upload.svg"/>
                 <input type="file" name="myfile" onChange={onChangeHandler}/>
             </div>
         </div>
         <div className={classes.container}>
-            {files.map(file => (<div style={{maxHeight: 150, margin: 5, borderRadius: 20}}>
-                <img style={{maxWidth: 150, maxHeight: 150, borderRadius: 20}} src={file.url}/>
-            </div>))}
+            {files.map(file => (
+                <div className={classes.imageContainer} key={file.id} style={{maxWidth: 150, minWidth: 150, height: 150, margin: 5, borderRadius: 20}}>
+                    <img className={classes.darkerOnHover}
+                         style={{maxWidth: 150, maxHeight: 150, borderRadius: 20}}
+                         src={file.url}/>
+                    <div style={{paddingTop: 55}}>
+                        Click to copy URL
+                    </div>
+                </div>
+            ))}
         </div>
     </div>
 };

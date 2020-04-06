@@ -37,3 +37,23 @@
     top: 0;
     opacity: 0;
 }
+
+.darkerOnHover:hover {
+    filter: brightness(0.3);
+}
+
+.imageContainer > div {
+    display: none;
+}
+
+.imageContainer:hover {
+    background-color: #555555;
+}
+
+.imageContainer:hover > img {
+    display: none;
+}
+
+.imageContainer:hover > div {
+    display: block;
+}
