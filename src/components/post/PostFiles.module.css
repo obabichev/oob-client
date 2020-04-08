@@ -1,36 +1,43 @@
-.container {
+.row {
     display: flex;
-    overflow-x: auto;
     flex-direction: row;
-    /*max-width: 500px;*/
 }
 
-.uploadButtonContainer:hover {
+.imageContainer {
+    max-width: 150px;
+    min-width: 150px;
+    height: 150px;
+    margin: 4px;
+    border-radius: 20px;
+}
+
+.imageContainer:hover {
     background-color: #555555;
 }
 
-.uploadBtnWrapper {
+.imageContainer > img {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.bordered {
+    border: dashed white 1px
+}
+
+.uploadButton {
     position: relative;
     overflow: hidden;
     height: 150px;
     width: 150px;
 }
 
-/*.uploadBtnWrapper:hover {*/
-/*    background-color: #555555;*/
-/*}*/
-
-.btn {
-    /*border: 2px solid gray;*/
-    /*color: gray;*/
-    /*background-color: white;*/
-    /*padding: 8px 20px;*/
-    /*border-radius: 8px;*/
-    /*font-size: 20px;*/
-    /*font-weight: bold;*/
+.uploadButton > img {
+    width: 80px;
+    height: 80px;
+    margin-top: 23px;
 }
 
-.uploadBtnWrapper input[type=file] {
+.uploadButton input[type=file] {
     font-size: 150px;
     position: absolute;
     left: 0;
@@ -38,22 +45,22 @@
     opacity: 0;
 }
 
-.darkerOnHover:hover {
-    filter: brightness(0.3);
+.autoOverflow {
+    overflow-x: auto;
 }
 
-.imageContainer > div {
+.imageWithHover > div {
     display: none;
 }
 
-.imageContainer:hover {
-    background-color: #555555;
-}
-
-.imageContainer:hover > img {
+.imageWithHover:hover > img {
     display: none;
 }
 
-.imageContainer:hover > div {
+.imageWithHover:hover > div {
     display: block;
+}
+
+.imageHoverPadding {
+    padding-top: 55px
 }

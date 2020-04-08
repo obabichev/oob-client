@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Post} from '../../types';
 import {fetchPost, fetchPosts} from '../../service/post';
 
@@ -24,4 +24,18 @@ export const useFetchPost = (id: number) => {
     }, []);
 
     return post;
+};
+
+export const useRepeatableTimeout = () => {
+    const id = useRef<any>(null);
+
+    return (callback: () => void, timeout = 5000) => {
+        if (id.current) {
+            clearTimeout(id.current);
+        }
+        id.current = setTimeout(() => {
+            callback();
+            id.current = null;
+        }, timeout)
+    }
 };
