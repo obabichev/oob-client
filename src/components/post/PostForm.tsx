@@ -3,9 +3,10 @@ import Prism from 'prismjs';
 import {PostComponent} from './PostComponent';
 import {createPost} from '../../service/post';
 import {useHistory} from 'react-router';
-import {downloadFile, fetchFilesList, uploadFile} from '../../service/files';
 import {Post} from '../../types';
 import {PostFiles} from './PostFiles';
+
+import classes from './PostForm.module.css';
 
 export const PostForm: React.FunctionComponent<{ post: Post }> = ({post}) => {
     const history = useHistory();
@@ -14,7 +15,6 @@ export const PostForm: React.FunctionComponent<{ post: Post }> = ({post}) => {
         title: '',
         description: ''
     });
-    const [files, setFiles] = useState<any[]>([]);
 
     const onChange: ChangeEventHandler<{ value: string, name: string; }> = (event) => {
         setForm({
@@ -38,20 +38,26 @@ export const PostForm: React.FunctionComponent<{ post: Post }> = ({post}) => {
             })
     };
 
-    return <div style={{textAlign: 'center'}}>
-        <div style={{textAlign: 'left'}}>
+    return <div>
+        <div className={classes.formControl}>
             <label htmlFor="title">Title</label>
-            <input onChange={onChange} value={form.title} name="title"/>
+            <input type="text"
+                   onChange={onChange}
+                   value={form.title}
+                   name="title"/>
         </div>
-        <div style={{textAlign: 'left'}}>
+        <div className={classes.formControl}>
             <label htmlFor="title">Description</label>
-            <input onChange={onChange} value={form.description} name="description"/>
+            <input type="text"
+                   onChange={onChange}
+                   value={form.description} name="description"/>
         </div>
-        <div style={{maxWidth: '48rem'}}>
-                <textarea style={{width: '100%', resize: 'none', outline: 'none', height: '300px'}}
-                          value={form.content}
-                          onChange={onChange}
-                          name="content"/>
+        <div className={classes.formControl}>
+            <label>Content</label>
+            <textarea
+                value={form.content}
+                onChange={onChange}
+                name="content"/>
         </div>
         <button onClick={onCreatePost}>Create</button>
 
