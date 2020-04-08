@@ -39,7 +39,7 @@ export const PostFiles: React.FunctionComponent<{ postId: number; }> = ({postId}
     };
 
     const onCopyFileUrl = (file: S3File) => () => {
-        copyTextToClipboard(`![${file.filename}](${file.url})`);
+        copyTextToClipboard(`![${file.id}](${file.url})`);
         setCopiedFileId(file.id);
         timeout(() => setCopiedFileId(null));
     };
@@ -52,7 +52,7 @@ export const PostFiles: React.FunctionComponent<{ postId: number; }> = ({postId}
             </div>
         </div>
         <div ref={refContainer}
-             className={classNames(classes.row, classes.autoOverflow)}>
+             className={classNames(classes.row, classes.autoOverflow, classes.borderedImages)}>
             {files.map(file => (
                 <div className={classNames(classes.imageWithHover, classes.imageContainer)}
                      key={file.id}

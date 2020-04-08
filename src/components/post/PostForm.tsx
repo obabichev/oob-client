@@ -7,6 +7,7 @@ import {Post} from '../../types';
 import {PostFiles} from './PostFiles';
 
 import classes from './PostForm.module.css';
+import classNames from 'classnames';
 
 export const PostForm: React.FunctionComponent<{ post: Post }> = ({post}) => {
     const history = useHistory();
@@ -59,7 +60,15 @@ export const PostForm: React.FunctionComponent<{ post: Post }> = ({post}) => {
                 onChange={onChange}
                 name="content"/>
         </div>
-        <button onClick={onCreatePost}>Create</button>
+
+        <div className={classes.marginBottom}>
+            <button className={classes.primaryButton}
+                    onClick={onCreatePost}>Publish
+            </button>
+            <button className={classNames(classes.secondaryButton, classes.marginLeft)}
+                    onClick={onCreatePost}>Save as draft
+            </button>
+        </div>
 
         <PostFiles postId={post.id}/>
 

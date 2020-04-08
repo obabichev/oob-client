@@ -1,6 +1,7 @@
 .row {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .imageContainer {
@@ -23,6 +24,11 @@
 
 .bordered {
     border: dashed white 1px
+}
+
+.borderedImages {
+    border-radius: 20px;
+    border: 1px solid #6897BB;
 }
 
 .uploadButton {
