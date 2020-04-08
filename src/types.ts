@@ -19,3 +19,11 @@ export interface Post {
     content: string;
     status: 'draft' | 'progress' | 'published' | 'deleted'
 }
+
+export interface S3File {
+    filename: string
+    id: number
+    key: string
+    mimetype: string
+    url: string
+}

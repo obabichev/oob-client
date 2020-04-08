@@ -1,14 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {fetchPostFiles} from '../../service/post';
 import {uploadFile} from '../../service/files';
 import classes from './PostFiles.module.css';
 import {copyTextToClipboard} from '../../utils/copyTextToClipboard';
 import {useRepeatableTimeout} from './hooks';
 import classNames from 'classnames';
+import {S3File} from '../../types';
 
 export const PostFiles: React.FunctionComponent<{ postId: number; }> = ({postId}) => {
-    const [files, setFiles] = useState<any[]>([]);
-    const [copiedFileId, setCopiedFileId] = useState<number | null>(null)
+    const [files, setFiles] = useState<S3File[]>([]);
+    const [copiedFileId, setCopiedFileId] = useState<number | null>(null);
+
+    const refContainer = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        if (refContainer.current) {
+            refContainer.current.scrollLeft = 0;
+        }
+    }, [files]);
 
     const timeout = useRepeatableTimeout();
 
@@ -22,12 +30,15 @@ export const PostFiles: React.FunctionComponent<{ postId: number; }> = ({postId}
 
     const onChangeHandler = (event: any) => {
         uploadFile(event.target.files[0], postId)
+            .then(file => {
+                setFiles([file, ...files])
+            })
             .catch(error => {
                 console.error(error.message);
             })
     };
 
-    const onCopyFileUrl = (file: any) => () => {
+    const onCopyFileUrl = (file: S3File) => () => {
         copyTextToClipboard(`![${file.filename}](${file.url})`);
         setCopiedFileId(file.id);
         timeout(() => setCopiedFileId(null));
@@ -40,7 +51,8 @@ export const PostFiles: React.FunctionComponent<{ postId: number; }> = ({postId}
                 <input type="file" name="myfile" onChange={onChangeHandler}/>
             </div>
         </div>
-        <div className={classNames(classes.row, classes.autoOverflow)}>
+        <div ref={refContainer}
+             className={classNames(classes.row, classes.autoOverflow)}>
             {files.map(file => (
                 <div className={classNames(classes.imageWithHover, classes.imageContainer)}
                      key={file.id}

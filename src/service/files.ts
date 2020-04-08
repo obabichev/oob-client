@@ -12,5 +12,5 @@ export const downloadFile = async (fileName: string) => {
 
 export const uploadFile = async (file: any, postId: number) => {
     const response = await service.upload(`/post/${postId}/upload`, file);
-    console.log('[obabichev] response', response);
+    return response.file;
 };

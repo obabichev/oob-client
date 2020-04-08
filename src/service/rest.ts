@@ -51,13 +51,10 @@ const upload = async (path: string, file: any): Promise<any> => {
 
     const response = await fetch(domain + path, {
         method: 'POST',
-        // headers: {
-        //     'content-type': file.type
-        // },
         body: formData
     });
 
-    return response.text();
+    return response.json();
 };
 
 export const service = {
