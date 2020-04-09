@@ -35,6 +35,22 @@ const post = async <R>(path: string, body: Object): Promise<R> => {
     return response.json();
 };
 
+const put = async <R>(path: string, body: Object): Promise<R> => {
+    const response = await fetch(domain + path, {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
+
+    if (response.status !== 200) {
+        throw Error(await response.text());
+    }
+
+    return response.json();
+};
+
 const file = async <R>(path: string): Promise<String> => {
     const response = await fetch(domain + path);
 
@@ -61,5 +77,6 @@ export const service = {
     get,
     post,
     file,
-    upload
+    upload,
+    put
 };

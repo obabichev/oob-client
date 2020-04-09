@@ -1,6 +1,7 @@
 export type Maybe<T> = null | T;
 
 export interface User {
+    id: number;
     username: string;
     firstName?: string;
     lastName?: string;
@@ -13,11 +14,21 @@ export interface Permission {
     name: string;
 }
 
+export enum PostStatus {
+    DRAFT = 'draft',
+    PROGRESS = 'progress',
+    PUBLISHED = 'published',
+    DELETED = 'deleted'
+}
+
 export interface Post {
     id: number;
     title: string;
+    description: string;
     content: string;
-    status: 'draft' | 'progress' | 'published' | 'deleted'
+    status: PostStatus;
+    owner: User;
+    createdAt: string;
 }
 
 export interface S3File {

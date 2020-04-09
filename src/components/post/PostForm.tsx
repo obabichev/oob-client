@@ -1,9 +1,9 @@
 import React, {ChangeEventHandler, useEffect, useState} from 'react';
 import Prism from 'prismjs';
 import {PostComponent} from './PostComponent';
-import {createPost} from '../../service/post';
+import {updatePost} from '../../service/post';
 import {useHistory} from 'react-router';
-import {Post} from '../../types';
+import {Post, PostStatus} from '../../types';
 import {PostFiles} from './PostFiles';
 
 import classes from './PostForm.module.css';
@@ -11,11 +11,7 @@ import classNames from 'classnames';
 
 export const PostForm: React.FunctionComponent<{ post: Post }> = ({post}) => {
     const history = useHistory();
-    const [form, setForm] = useState({
-        content: '',
-        title: '',
-        description: ''
-    });
+    const [form, setForm] = useState({...post});
 
     const onChange: ChangeEventHandler<{ value: string, name: string; }> = (event) => {
         setForm({
@@ -28,10 +24,19 @@ export const PostForm: React.FunctionComponent<{ post: Post }> = ({post}) => {
         Prism.highlightAll();
     }, [form.content]);
 
-    const onCreatePost = () => {
-        createPost(form)
+    const onPublish = () => {
+        updatePost({...form, status: PostStatus.PUBLISHED})
             .then(post => {
-                console.log('[obabichev] post', post);
+                history.push('/');
+            })
+            .catch(error => {
+                console.error(error.message);
+            })
+    };
+
+    const onSaveAsDraft = () => {
+        updatePost({...form, status: PostStatus.DRAFT})
+            .then(post => {
                 history.push('/');
             })
             .catch(error => {
@@ -63,10 +68,10 @@ export const PostForm: React.FunctionComponent<{ post: Post }> = ({post}) => {
 
         <div className={classes.marginBottom}>
             <button className={classes.primaryButton}
-                    onClick={onCreatePost}>Publish
+                    onClick={onPublish}>Publish
             </button>
             <button className={classNames(classes.secondaryButton, classes.marginLeft)}
-                    onClick={onCreatePost}>Save as draft
+                    onClick={onSaveAsDraft}>Save as draft
             </button>
         </div>
 

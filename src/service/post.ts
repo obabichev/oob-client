@@ -7,18 +7,18 @@ export const fetchPosts = async () => {
     return response.posts;
 };
 
-export const fetchPost = async (id: number) => {
+export const fetchPost = async (id: number | string) => {
     const response = await service.get<{ post: Post }>(`/post/${id}`);
     return response.post;
 };
 
-export const createPost = async (body: { title: string, description: string, content: string }) => {
-    const response = await service.post<{ post: Post; }>('/post', body);
+export const updatePost = async (post: Post) => {
+    const response = await service.put<{ post: Post; }>(`/post/${post.id}`, post);
     return response.post;
 };
 
-export const fetchDraftPost = async () => {
-    const response = await service.get<{ post: Post }>('/post', {status: 'draft'});
+export const fetchInitPost = async () => {
+    const response = await service.get<{ post: Post }>('/post', {status: 'init'});
     return response.post;
 };
 

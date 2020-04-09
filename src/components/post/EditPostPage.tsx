@@ -1,14 +1,20 @@
 import React, {useEffect, useState} from 'react';
+import {RouteComponentProps} from 'react-router';
+import {Maybe, Post} from '../../types';
+import {fetchPost} from '../../service/post';
 import {Page} from '../Page';
 import {PostForm} from './PostForm';
-import {fetchInitPost} from '../../service/post';
-import {Maybe, Post} from '../../types';
 
-export const CreatePostPage: React.FunctionComponent<{}> = () => {
+interface EditPostPageProps extends RouteComponentProps<{ id: string }> {
+}
+
+export const EditPostPage: React.FunctionComponent<EditPostPageProps> = ({match}) => {
     const [post, setPost] = useState<Maybe<Post>>(null);
 
+    const id = match.params.id;
+
     useEffect(() => {
-        fetchInitPost()
+        fetchPost(id)
             .then(post => {
                 console.log('[obabichev] post 13135', post);
                 setPost(post);
