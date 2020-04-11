@@ -27,7 +27,7 @@ export const PostForm: React.FunctionComponent<{ post: Post }> = ({post}) => {
     const onPublish = () => {
         updatePost({...form, status: PostStatus.PUBLISHED})
             .then(post => {
-                history.push('/');
+                history.push(`/post/${post.id}`);
             })
             .catch(error => {
                 console.error(error.message);
@@ -37,7 +37,7 @@ export const PostForm: React.FunctionComponent<{ post: Post }> = ({post}) => {
     const onSaveAsDraft = () => {
         updatePost({...form, status: PostStatus.DRAFT})
             .then(post => {
-                history.push('/');
+                history.push(`/post/${post.id}`);
             })
             .catch(error => {
                 console.error(error.message);

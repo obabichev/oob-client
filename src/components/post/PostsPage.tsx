@@ -9,6 +9,7 @@ import {CustomLink} from '../common/CustomLink';
 import {IconButton} from '../common/IconButton';
 import {useSession} from '../../context/SessionContext';
 import {useHistory} from 'react-router';
+import {formatDate, fullUserName} from '../../utils/format';
 
 
 export const PostsPage: React.FunctionComponent<{}> = (props) => {
@@ -39,10 +40,12 @@ export const PostsPage: React.FunctionComponent<{}> = (props) => {
                 </CustomLink>
                 {isOwner(post.owner.id) && <IconButton
                     height={20}
-                    src="/images/create_yellow.svg"
+                    src="/images/edit_yellow.svg"
                     onClick={onEditPostClick(post.id)}/>}
                 <div>
-                    <small style={{color: '#a9b7c6'}}>{post.createdAt}</small>
+                    <small style={{color: '#a9b7c6'}}>
+                        {[fullUserName(post.owner), formatDate(post.createdAt)].join(', ')}
+                    </small>
                     <p style={{color: '#a9b7c6', marginTop: 0, marginBottom: 28}}>{post.description}</p>
                 </div>
             </div>

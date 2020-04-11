@@ -16,7 +16,6 @@ export const EditPostPage: React.FunctionComponent<EditPostPageProps> = ({match}
     useEffect(() => {
         fetchPost(id)
             .then(post => {
-                console.log('[obabichev] post 13135', post);
                 setPost(post);
             })
             .catch(error => {
